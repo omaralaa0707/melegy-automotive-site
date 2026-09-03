@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!--
+    A redraw, not their file: a clipboard with a checked line, standing for
+    the fixed intake form every one of their posts is built from.
+  -->
+  <rect x="9" y="8" width="30" height="35" rx="2.5" stroke="#ece7dc" stroke-width="2"/>
+  <rect x="17" y="5" width="14" height="7" rx="2" fill="#1c1a17" stroke="#ece7dc" stroke-width="2"/>
+  <path d="M15 20h9M15 26h9M15 32h5" stroke="#ece7dc" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M28 19.5l2.6 2.6 5-5.4" stroke="#dd7057" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

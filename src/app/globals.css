@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+@theme {
+  /*
+   * A dealership that runs on one intake form, so the page is built like a
+   * dark counter with a lit paper sheet on it — the same palette their own
+   * evening photographs show: a dark stucco facade lit by warm downlights,
+   * a cream form under the light, a workshop red lifted from their own
+   * "AUTO" signage.
+   */
+  --color-ground: #1c1a17; /* the counter */
+  --color-ground-2: #262320; /* raised card */
+  --color-ground-3: #322e29; /* rules only — never text */
+  --color-cream: #ece7dc; /* 14.1:1 on ground */
+  --color-cream-2: #b3a78f; /* 7.3:1 on ground */
+  --color-cream-3: #8f8574; /* 4.8:1 on ground — the faintest text allowed */
+  --color-paper: #ede3ce; /* the sheet itself */
+  --color-ink: #221e1a; /* 13.0:1 on paper */
+  --color-ink-2: #5b5142; /* 6.1:1 on paper */
+  --color-red: #dd7057; /* status/accent, ground & card only: 5.4 / 4.9:1 */
+  --color-red-stamp: #a23429; /* the ink itself, large marks on paper only */
+  --color-amber: #e7a94d; /* the downlight glow — fills only, sparing */
+
+  --font-display: var(--font-bitter), Georgia, serif;
+  --font-body: var(--font-space-mono), ui-monospace, monospace;
+  --font-arabic-display: var(--font-katibeh), "Segoe UI", sans-serif;
+  --font-arabic-body: var(--font-vazirmatn), system-ui, sans-serif;
+
+  --text-hero: clamp(2rem, 5vw, 4rem);
+  --text-display: clamp(1.5rem, 3vw, 2.4rem);
+  --text-lead: clamp(0.98rem, 1.1vw, 1.1rem);
+
+  /* A checkbox ticking: a hair of overshoot, then a hard settle. */
+  --ease-tick: cubic-bezier(0.28, 1.4, 0.42, 1);
+}
+
+@layer base {
+  section[id] { scroll-margin-top: 5.5rem; }
+
+  html {
+    background: var(--color-ground);
+    color: var(--color-cream);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: auto;
+  }
+
+  body { font-family: var(--font-body); overflow-x: hidden; }
+  html[dir="rtl"] body { font-family: var(--font-arabic-body); }
+
+  ::selection { background: var(--color-red); color: var(--color-ground); }
+  :focus-visible { outline: 2px solid var(--color-red); outline-offset: 3px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility font-display { font-family: var(--font-display); }
+html[dir="rtl"] .font-display { font-family: var(--font-arabic-display); }
+
+@utility label {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.66rem;
+  font-weight: 500;
+}
+html[dir="rtl"] .label {
+  font-family: var(--font-arabic-body);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.82rem;
+}
+
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* A field value, set in the form's own hand. */
+@utility field {
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ---------------------------------------------------------------------------
+ * Motion signature: the tick.
+ *
+ * This is a page of checkboxes — every equipment line in their captions is a
+ * bullet ticked off. So content arrives the way a box gets ticked: it snaps
+ * up past full size by a few percent and settles, quick and mechanical, with
+ * no travel and no fade drift.
+ * ------------------------------------------------------------------------ */
+
+@keyframes tick-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes rule-tick { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes tick-in { from { opacity: 1; transform: none; } to { opacity: 1; transform: none; } }
+  @keyframes rule-tick { from { transform: none; } to { transform: none; } }
+}
+
+[data-tick] { opacity: 0; }
+[data-tick][data-seen] {
+  animation: tick-in 320ms var(--ease-tick) var(--tick-delay, 0ms) both;
+}
+[data-tick-rule] { transform: scaleX(0); }
+[data-tick-rule][data-seen] {
+  animation: rule-tick 360ms var(--ease-tick) var(--tick-delay, 0ms) both;
+}
+
+/* ---------------------------------------------------------------------------
+ * Arabic corrections. Keyed off [dir], never [lang] — browser translation
+ * rewrites lang. Unlayered so they outrank Tailwind utilities.
+ * ------------------------------------------------------------------------ */
+
+html[dir="ltr"] .text-hero { line-height: 1.06; }
+html[dir="rtl"] .text-hero {
+  font-size: clamp(2.3rem, 6vw, 4.6rem);
+  /* Katibeh is a tall condensed poster face; a tight leading collides its
+     ascenders with the line above. */
+  line-height: 1.4;
+}
+html[dir="ltr"] .text-display { line-height: 1.1; }
+html[dir="rtl"] .text-display {
+  font-size: clamp(1.7rem, 3.4vw, 2.7rem);
+  line-height: 1.4;
+}
+
+html[dir="rtl"] [class*="tracking-["],
+html[dir="rtl"] .tracking-widest,
+html[dir="rtl"] .tracking-wider { letter-spacing: 0; }
+
+.fine { font-size: 0.78rem; line-height: 1.6; }
+html[dir="rtl"] .fine { font-size: 0.82rem; line-height: 1.8; }
+
+html[dir="rtl"] .text-lead { font-size: clamp(1rem, 1.15vw, 1.14rem); line-height: 1.9; }
+
+/* Marque names, model codes, mileage and phone numbers stay Latin and LTR
+   inside Arabic copy — "135,000 كم" must not reorder its digits. */
+.latin {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: var(--font-body);
+}
+html[dir="rtl"] .latin { text-align: right; }
