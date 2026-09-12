@@ -90,8 +90,7 @@ export const en: MelegyContent = {
   },
 
   footer: {
-    disclaimer: "A concept design, built as a demonstration. Not an official Melegy Auto site, and not affiliated with them. All photography, marks and quoted copy belong to Melegy Auto.",
-    rights: "Concept by Claude",
+    rights: "© Melegy Auto. All rights reserved.",
   },
 
   a11y: {

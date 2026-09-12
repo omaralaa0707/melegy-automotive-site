@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Bitter, Space_Mono, Katibeh, Vazirmatn } from "next/font/google";
 import "./globals.css";
 import { LocaleProvider } from "@/i18n/locale-provider";
-import { ScrollProvider } from "@/components/motion/scroll-provider";
 import { ar } from "@/content/ar";
 import { en } from "@/content/en";
 
@@ -62,7 +61,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <style>{`[data-tick],[data-tick-rule]{opacity:1!important;transform:none!important;animation:none!important}`}</style>
         </noscript>
         <LocaleProvider dictionaries={{ ar, en }} defaultLocale="ar">
-          <ScrollProvider />
           {children}
         </LocaleProvider>
       </body>
